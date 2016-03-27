@@ -1,0 +1,31 @@
+Dian Night Project README
+
+    There are some program using basic socket network programming,
+    following the POSIX interfaces.
+
+  SOURCES:
+    src
+    ├── bind.c  # functions for binding as a server
+    ├── bind.h
+    ├── chat_client.c  # the chatroom client
+    ├── chatroom.c  # the chatroom server
+    ├── client.c  # the client for sending message using TCP
+    ├── connect.c  # functions for clients connecting to a server
+    ├── connect.h
+    └── server.c  # the server accept command and respond with calculated result
+
+  INSTALATION:
+    These program are packaged using GNU autotools
+    Download the tarball and:
+      
+      tar xvf dian_night-X.Y.Z.tar.gz
+      cd dian_night-X.Y.Z
+      make
+      make install  # maybe with `sudo` or DESTDIR variable
+
+  DEVELOPMENT:
+    Using GNU Autotools to configure this project for your plantform
+      
+      autoreconf -i
+      ./configure
+      make
