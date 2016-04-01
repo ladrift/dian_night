@@ -25,7 +25,8 @@
  * @param message a pointer to buffer where to store the line
  * @return the number of characters stored to the buffer
  */
-int get_line(char *message) {
+int get_line(char *message)
+{
     int num_ch = 0;
     int c;
     while ((c = getchar()) != EOF && c != '\n') {
@@ -36,7 +37,8 @@ int get_line(char *message) {
     return num_ch;
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
     // Check commandline arguments
     if (argc != 3) {
         fprintf(stderr, "usage: client hostname port\n");
@@ -64,7 +66,8 @@ int main(int argc, char **argv) {
         if ((numbytes = recv(sockfd, buf, MAXSIZE - 1, 0)) == -1) {
             perror("recv");
             exit(1);
-        } else if (numbytes == 0) {
+        }
+        else if (numbytes == 0) {
             printf("server closed.\n");
             exit(1);
         }
@@ -73,7 +76,8 @@ int main(int argc, char **argv) {
 
         if (buf[0] == '0') {
             printf("client: result from server: %s\n", buf + 2);
-        } else {
+        }
+        else {
             printf("client: error from server: %s\n", buf + 2);
         }
     }

@@ -16,7 +16,8 @@
  * @param message a pointer to buffer where to store the line
  * @return the number of characters stored to the buffer
  */
-int get_line(char *message) {
+int get_line(char *message)
+{
     int num_ch = 0;
     int c;
     while ((c = getchar()) != EOF && c != '\n') {
@@ -27,7 +28,8 @@ int get_line(char *message) {
     return num_ch;
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     if (argc != 3) {
         fprintf(stderr, "usage: chat_client hostname port\n");
         exit(1);
@@ -65,14 +67,16 @@ int main(int argc, char *argv[]) {
                     if (send(sockfd, buf, nbytes, 0) == -1) {
                         perror("send");
                     }
-                } else if (i == sockfd) {
+                }
+                else if (i == sockfd) {
                     // Receive message from server
                     if ((nbytes = recv(i, buf, sizeof buf, 0)) <= 0) {
                         if (nbytes == 0) {
                             // connection closed
                             fprintf(stderr, "chat_client: server closed.\n");
                             exit(1);
-                        } else {
+                        }
+                        else {
                             perror("recv");
                         }
                     }

@@ -24,7 +24,8 @@
  * @param listener the listening socket descriptor
  * @return the new file descriptor
  */
-int accept_new_connection(int listener) {
+int accept_new_connection(int listener)
+{
     char remoteIP[INET6_ADDRSTRLEN];
     struct sockaddr_storage remoteaddr;
     socklen_t addrlen = sizeof remoteaddr;
@@ -33,7 +34,8 @@ int accept_new_connection(int listener) {
 
     if (new_fd < 0) {
         perror("accept");
-    } else {
+    }
+    else {
         printf(
             "chatroom: new connection from %s on "
             "socket %d\n",
@@ -56,7 +58,8 @@ int accept_new_connection(int listener) {
  * @param fd_max the max file descriptor for all members
  */
 void broadcast_message(int listener, int sender, char *message, fd_set members,
-                       int fd_max) {
+                       int fd_max)
+{
     for (int i = 0; i <= fd_max; ++i) {
         // send to all members
         if (FD_ISSET(i, &members)) {
@@ -72,7 +75,8 @@ void broadcast_message(int listener, int sender, char *message, fd_set members,
     }
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     if (argc != 2) {
         fprintf(stderr, "usage: chatroom port\n");
         exit(1);
@@ -106,7 +110,8 @@ int main(int argc, char *argv[]) {
                     if (new_fd > fd_max) {
                         fd_max = new_fd;
                     }
-                } else {
+                }
+                else {
                     // handle message received from client
                     char buf[MAXSIZE];
                     int nbytes;
@@ -115,12 +120,14 @@ int main(int argc, char *argv[]) {
                         if (nbytes == 0) {
                             // connection closed
                             printf("chatroom: socket %d hung up.\n", i);
-                        } else {
+                        }
+                        else {
                             perror("recv");
                         }
                         close(i);
                         FD_CLR(i, &master);
-                    } else {
+                    }
+                    else {
                         // we got some data from client
                         buf[nbytes] = '\0';
                         printf("data from client %d: %s\n", i, buf);

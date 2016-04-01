@@ -22,11 +22,13 @@
  * @param sa a socket address structure
  * @return a pointer to struct in_addr or struct in6_addr
  */
-void *get_in_addr(struct sockaddr *sa) {
+void *get_in_addr(struct sockaddr *sa)
+{
     if (sa->sa_family == AF_INET) {
         // IPv4
         return &(((struct sockaddr_in *)sa)->sin_addr);
-    } else {
+    }
+    else {
         // IPv6
         return &(((struct sockaddr_in6 *)sa)->sin6_addr);
     }
@@ -40,9 +42,10 @@ void *get_in_addr(struct sockaddr *sa) {
  * @param port the port number where server listening
  * @return status of
  */
-struct addrinfo *get_server_info(const char *hostname, const char *port) {
+struct addrinfo *get_server_info(const char *hostname, const char *port)
+{
     // Build a hint to get server's address info
-    struct addrinfo hints = { 0 };
+    struct addrinfo hints = {0};
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
 
@@ -63,7 +66,8 @@ struct addrinfo *get_server_info(const char *hostname, const char *port) {
  * @param port the port number where server listening
  * @return the connected sock descriptor
  */
-int connect_server(const char *hostname, const char *port) {
+int connect_server(const char *hostname, const char *port)
+{
     struct addrinfo *servinfo;
     servinfo = get_server_info(hostname, port);
 

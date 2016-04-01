@@ -28,7 +28,8 @@ char remote_ip[INET6_ADDRSTRLEN];
  * @param operand a string contains the operand
  * @return a integer, 1 means true, 0 means false
  */
-int strisfloat(const char *operand) {
+int strisfloat(const char *operand)
+{
     int len = strlen(operand);
     for (int i = 0; i < len; ++i) {
         if (!isdigit(operand[i]) && operand[i] != '.') {
@@ -48,7 +49,8 @@ int strisfloat(const char *operand) {
  *                put error message while processing command
  * @return the result of calculation
  */
-double calculate(char *buf, char **err_msg) {
+double calculate(char *buf, char **err_msg)
+{
     // Retrive the comman
     char *op_code = strtok(buf, " ");
     char *operand1 = NULL;
@@ -67,26 +69,33 @@ double calculate(char *buf, char **err_msg) {
         if (!strisfloat(operand1)) {
             asprintf(err_msg, "First operand '%s' is not a float number.",
                      operand1);
-        } else if (!strisfloat(operand2)) {
+        }
+        else if (!strisfloat(operand2)) {
             asprintf(err_msg, "Second operand '%s' is not a float number.",
                      operand2);
-        } else {
+        }
+        else {
             op1 = atof(operand1);
             op2 = atof(operand2);
 
             if (strcmp(op_code, "add") == 0) {
                 result = op1 + op2;
-            } else if (strcmp(op_code, "sub") == 0) {
+            }
+            else if (strcmp(op_code, "sub") == 0) {
                 result = op1 - op2;
-            } else if (strcmp(op_code, "mul") == 0) {
+            }
+            else if (strcmp(op_code, "mul") == 0) {
                 result = op1 * op2;
-            } else if (strcmp(op_code, "div") == 0) {
+            }
+            else if (strcmp(op_code, "div") == 0) {
                 result = op1 / op2;
-            } else {
+            }
+            else {
                 asprintf(err_msg, "Command '%s' not exists", op_code);
             }
         }
-    } else {
+    }
+    else {
         asprintf(err_msg, "Operands not enough (need two operands)");
     }
 
@@ -99,7 +108,8 @@ double calculate(char *buf, char **err_msg) {
  *
  * @param newfd a new socket descriptor to conmunicate with client
  */
-void handle_client(int fd) {
+void handle_client(int fd)
+{
     while (1) {
         // Receive message from client
         int numbytes;
@@ -107,7 +117,8 @@ void handle_client(int fd) {
         if ((numbytes = recv(fd, buf, MAXSIZE - 1, 0)) == -1) {
             perror("recv");
             exit(1);
-        } else if (numbytes == 0) {
+        }
+        else if (numbytes == 0) {
             printf("connection from %s closed\n", remote_ip);
             exit(0);
         }
@@ -121,7 +132,8 @@ void handle_client(int fd) {
         char *response;
         if (isnan(result)) {
             asprintf(&response, "1 %s", err_msg);
-        } else {
+        }
+        else {
             asprintf(&response, "0 %g", result);
         }
 
@@ -132,7 +144,8 @@ void handle_client(int fd) {
     }
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
     if (argc != 2) {
         fprintf(stderr, "usage: server port\n");
         exit(1);

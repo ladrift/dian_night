@@ -26,7 +26,8 @@
  *
  * @param unused_sig the required parameter for signal handler
  */
-void sigchld_handler(int unused_sig) {
+void sigchld_handler(int unused_sig)
+{
     // waitpid() might overwrite errno, so we save and restore it:
     int saved_errno = errno;
 
@@ -43,7 +44,8 @@ void sigchld_handler(int unused_sig) {
  * @param sa a socket address structure
  * @return a pointer to struct in_addr or struct in6_addr
  */
-void *get_in_addr(struct sockaddr *sa) {
+void *get_in_addr(struct sockaddr *sa)
+{
     if (sa->sa_family == AF_INET) {
         return &(((struct sockaddr_in *)sa)->sin_addr);
     }
@@ -58,7 +60,8 @@ void *get_in_addr(struct sockaddr *sa) {
  * @param hostname a string contains the hostname to server
  * @param port a string contains the port number
  */
-int bind_at(const char *port) {
+int bind_at(const char *port)
+{
     struct addrinfo hints;
     struct addrinfo *servinfo;
 
